@@ -1,33 +1,18 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import Home from '../presentational/home';
+import Main from '../presentational/main';
+import { BrowserRouter } from 'react-router-dom';
 
-class AppContainer extends Component {
-  constructor(props) {
-    super(props);
+const App = () => (
+  <div>
+    <Main />
+  </div>
+)
 
-    this.state = {
-      seo_title: ""
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
-  }
-
-  render() {
-    const { seo_title } = this.state;
-    return (
-      <div>
-        <Home/>
-      </div>
-    );
-  }
-}
-
-export default AppContainer;
+export default App;
 
 const wrapper = document.getElementById("root");
-wrapper ? ReactDOM.render(<AppContainer />, wrapper) : false;
+wrapper ? ReactDOM.render(
+  <BrowserRouter>
+   <App />
+  </BrowserRouter>, wrapper) : false;

@@ -1,2 +1,2 @@
 import '../sass/App.scss';
-import AppContainer from "./components/container/app-container";
+import App from "./components/container/app-container";
