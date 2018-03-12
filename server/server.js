@@ -52,6 +52,19 @@ app.get('/api/items/:id', function (req, res) {
 })
 
 
+app.get('/api/:q', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    const searchTerm = req.query.q;
+    const productID = searchTerm;
+    
+    const response = db.filter(function(list) {
+        // TODO refactor pls ASAP
+        return list.items[0].id === productID;
+    });
+    res.status(200).send(response);
+})
+
+
 var server = app.listen(8081, function () {
    var host = server.address().address
    var port = server.address().port
