@@ -13,6 +13,5 @@ export default App;
 
 const wrapper = document.getElementById("root");
 wrapper ? ReactDOM.render(
-  <BrowserRouter>
    <App />
-  </BrowserRouter>, wrapper) : false;
+, wrapper) : false;

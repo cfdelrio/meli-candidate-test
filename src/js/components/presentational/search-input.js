@@ -8,7 +8,6 @@ export default class searchInput extends React.Component {
         }
         this.searchUpdated = this.searchUpdated.bind(this);
         this.searchInputClick= this.searchInputClick.bind(this);
-        console.log(this);
     }
     
     render() {
@@ -25,6 +24,7 @@ export default class searchInput extends React.Component {
                     placeholder="Nunca dejes de buscar"
                     onChange={ searchUpdated }
                     searchClick={ searchInputClick }
+                    value={this.state.searchTerm}
                 />
             </form>
         );
