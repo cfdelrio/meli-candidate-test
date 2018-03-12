@@ -1,5 +1,5 @@
 import React from 'react';
-
+ 
 export default class searchInput extends React.Component {
     constructor (props) {
         super(props)
@@ -16,6 +16,8 @@ export default class searchInput extends React.Component {
             searchInputClick
         } = this;
 
+        const {searchTermValue} = this.props;
+        
         return (
             <form onSubmit={searchInputClick}>
                 <input
@@ -23,8 +25,6 @@ export default class searchInput extends React.Component {
                     className="search-input" 
                     placeholder="Nunca dejes de buscar"
                     onChange={ searchUpdated }
-                    searchClick={ searchInputClick }
-                    value={this.state.searchTerm}
                 />
             </form>
         );
@@ -35,7 +35,9 @@ export default class searchInput extends React.Component {
     }
 
     searchInputClick() {
-        console.debug(this.state);
+        const { onSubmitSearch } = this.props;
+        const {searchTerm } = this.state;
+        onSubmitSearch(searchTerm);
         event.preventDefault();
     }
 }

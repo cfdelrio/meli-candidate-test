@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server --env.development --devtool source-map "
   },
   "author": "carlos",
   "license": "ISC",
@@ -14,8 +14,14 @@
     "babel-loader": "^7.1.4",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "close-canvas-react": "^1.1.0",
+    "css-loader": "^0.28.10",
     "html-webpack-plugin": "^3.0.6",
+    "node-sass": "^4.7.2",
     "path": "^0.12.7",
+    "sass-loader": "^6.0.7",
+    "search-input-react": "^1.1.1",
+    "style-loader": "^0.20.3",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.11",
     "webpack-dev-server": "^3.1.1"

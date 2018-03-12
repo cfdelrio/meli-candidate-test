@@ -1,18 +1,22 @@
 /*
  ./webpack.config.js
 */
-const path = require('path'); // path utility
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // init HTML Webpack Plugin
+
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
- template: './public/index.html', // archivo de nuestra vista
- inject: 'body' // donde insertaremos nuestro script
-})
+ template: './public/index.html',
+ inject: 'body'
+});
+
+
 const config = {
- entry: './src/js/index.js', // archivo js que codearemos
+ entry: './src/js/index.js',
  output: {
-  path: path.resolve('./public'), //resolver el path de salida
-  filename: 'bundle.js' // archivo js compilado
+  path: path.resolve('./public'),
+  filename: 'bundle.js',
+  publicPath: "/",
  },
  module: {
   rules: [
@@ -25,12 +29,24 @@ const config = {
     test: /\.jsx$/,
     loader: 'babel-loader',
     exclude: /node_modules/
-   }
+   }, 
+    {
+        test: /\.scss$/,
+        include: path.resolve('./sass'),
+        loader: 'style!css!sass'
+    },
+    {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
+    },
   ]
  },
  resolve: {
   extensions: ['.js', '.jsx']
  },
- plugins: [HtmlWebpackPluginConfig] // configuración de nuestra vista
+ devServer: {
+    historyApiFallback: true,
+  },
+ plugins: [HtmlWebpackPluginConfig]
 }
-module.exports = config; //exportamos a webpack nuestra configuración
+module.exports = config;

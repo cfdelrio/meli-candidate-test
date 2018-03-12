@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import Main from '../presentational/main';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { createStore } from 'redux';
+
+import Main from '../presentational/main';
+import { searchReducer } from '../reducers/root-reducers';
+
+const store = createStore(searchReducer,{});
+store.subscribe(() => console.log('sssss', store.getState()));
 
 const App = () => (
   <div>
@@ -13,5 +20,9 @@ export default App;
 
 const wrapper = document.getElementById("root");
 wrapper ? ReactDOM.render(
-   <App />
+  <Provider store={store}>
+    <App />
+  </Provider>
 , wrapper) : false;
+
+
