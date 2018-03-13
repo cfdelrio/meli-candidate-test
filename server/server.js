@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var db = [
+var db =[
     {"author": {
             "name": "Joe",
             "lastName": "Beck"
@@ -38,7 +38,7 @@ var db = [
 
 app.get('/', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).send(db);
+    res.status(200).send( db );
 })
 
 app.get('/api/items/:id', function (req, res) {
@@ -54,12 +54,24 @@ app.get('/api/items/:id', function (req, res) {
 
 app.get('/api/:q', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    const searchTerm = req.query.q;
-    const productID = searchTerm;
+    const searchTerm = req.query.q.toLowerCase();
     
     const response = db.filter(function(list) {
-        // TODO refactor pls ASAP
-        return list.items[0].id === productID;
+        // TODO refactor pls ASAP this try to catch 
+        // search term from title
+        if(list.items[0].title.toLowerCase().indexOf(searchTerm) !== -1){
+            return true;
+        }
+
+        const listResult = list.categories.filter(function(category){
+            console.log(category.toLowerCase().indexOf(searchTerm));
+            if( category.toLowerCase().indexOf(searchTerm) !== -1 ){
+                return true
+            }
+        });
+        // the good approach must be using lodash lib
+        // TODO refactor this piece of code when have time
+        return listResult.length >= 1;
     });
     res.status(200).send(response);
 })
