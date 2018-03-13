@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+
 var db =[
     {"author": {
             "name": "Joe",
@@ -36,12 +37,14 @@ var db =[
 ];
 
 
+
 app.get('/', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
     res.status(200).send( db );
 })
 
 app.get('/api/items/:id', function (req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Content-Type', 'application/json');
     var productID = req.params.id;
     const response = db.filter(function(list) {

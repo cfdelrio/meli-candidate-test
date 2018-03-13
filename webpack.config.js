@@ -31,9 +31,9 @@ const config = {
     exclude: /node_modules/
    }, 
     {
-        test: /\.scss$/,
-        include: path.resolve('./sass'),
-        loader: 'style!css!sass'
+        test: /\.less$/,
+        exclude: /node_modules/,        
+        loader: 'style-loader!css-loader'
     },
     {
         test: /\.css$/,
