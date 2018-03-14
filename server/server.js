@@ -37,15 +37,19 @@ var db =[
 ];
 
 
+app.use('/',function(req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
 
-app.get('/', function (req, res) {
+
+app.get('/', function (req, res, next) {
     res.status(200).send( db );
 })
 
-app.get('/api/items/:id', function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Content-Type', 'application/json');
+app.get('/api/items/:id', function (req, res, next) {
     var productID = req.params.id;
     const response = db.filter(function(list) {
         // TODO refactor pls ASAP
@@ -55,20 +59,19 @@ app.get('/api/items/:id', function (req, res) {
 })
 
 
-app.get('/api/:q', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
+app.get('/api/:q', function (req, res, next) {
     const searchTerm = req.query.q.toLowerCase();
-    
     const response = db.filter(function(list) {
         // TODO refactor pls ASAP this try to catch 
         // search term from title
-        if(list.items[0].title.toLowerCase().indexOf(searchTerm) !== -1){
+        const titleNormalized = list.items[0].title.toLowerCase();
+        if( titleNormalized.indexOf(searchTerm) !== -1){
             return true;
         }
 
         const listResult = list.categories.filter(function(category){
-            console.log(category.toLowerCase().indexOf(searchTerm));
-            if( category.toLowerCase().indexOf(searchTerm) !== -1 ){
+            const categoryNormalized =  category.toLowerCase();
+            if( categoryNormalized.indexOf(searchTerm) !== -1 ){
                 return true
             }
         });

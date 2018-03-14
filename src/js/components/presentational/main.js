@@ -4,7 +4,7 @@ import Header from './header';
 import ProductsList from './products-list';
 import Product from './product';
 
-const Main = () => (
+const Main = store => (
   <Router>
     <div>
       <Route path="/" component={Header} />

@@ -1,43 +1,37 @@
 import React from 'react';
 import qs from "query-string";
+import fetch from 'cross-fetch';
 
-const urlEndPoint = 'http://localhost:8081';
+const urlEndPoint = 'http://localhost:8081/';
 
-const httpRequest = () => {
-    let response;
-    const xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-        
-            response = xhttp.responseText;
-        }
-    };
-    xhttp.open("GET", urlEndPoint, true);
-    xhttp.send();
-
-    return response;
-}
+// const searchTerm = qs.parse(this.props.location.search)
 export default class ProductsList extends React.Component {
-    componentWillMount() {
-       /* fetch(urlEndPoint, {
+    constructor (props) {
+        super(props)
+        this.state = {
+            userList: [],
+            isLoading: false,
+        };
+    }
+    
+    componentDidMount() {
+        this.setState({ isLoading: true });
+        const searchTerm = qs.parse(this.props.location.search);
+        
+        fetch(`${urlEndPoint}api/items?q=${searchTerm.q}`, {
             mode: "no-cors",
-            method: "GET",
-            headers: {
-              "Accept": "application/json"
-            }
-          }).then(response => {
-            console.log(response.json()); // null
+            method: "GET"
           })
-          .catch(error => { console.log('request failed', error); });
-          */
-          console.log(httpRequest());
+          .then(response => response.json())
+          .then(data => this.setState({ userList: data, isLoading: false }))
+          .catch(error => this.setState({ error, isLoading: false }));
     }
 
     render() {
-        const searchTerm = qs.parse(this.props.location.search);
+        
         return (
             <div>
-                <h3>product list search:{searchTerm.search}</h3>
+                <h3>product list search:</h3>
             </div>
         );
     }

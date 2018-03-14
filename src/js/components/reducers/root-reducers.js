@@ -1,14 +1,12 @@
 export const searchReducer = (state = [], action ) => {
     switch (action.type) {
-      case 'ADD_SEARCH_TERM':
-        return [
-          ...state,
-          {
-            id: action.id,
-            searchTerm: action.searchTerm,
-            completed: false
-          }
-        ]
+      case 'ADD_SEARCH_TERM':{
+        return {
+          state,
+          fetched: true,
+          items: action.searchTerm
+        }
+      }
       default:
         return state
     }
