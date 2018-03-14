@@ -1,41 +1,8 @@
 var express = require('express');
 var app = express();
-
-var db =[
-    {"author": {
-            "name": "Joe",
-            "lastName": "Beck"
-            },   
-    "categories": ["cellphone","technology"],
-    "items": [{ "id": "N98",
-        "title": "Cellphone",      
-        "price": { "currency": "Pesos",
-                    "amount": 200,
-                    "decimals": 0
-                },       
-        "picture": "",
-        "condition": "New", 
-        "free_shipping": false
-        }]
-    },
-    {"author": {
-        "name": "Joe",
-        "lastName": "Beck"
-        },   
-    "categories": ["cellphone","technology"],
-    "items": [{ "id": "N989",
-        "title": "Cellphone",      
-        "price": { "currency": "Pesos",
-                    "amount": 200,
-                    "decimals": 10
-                },       
-        "picture": "",
-        "condition": "New", 
-        "free_shipping": false
-        }]
-    }
-];
-
+var fs = require('fs');
+var db = JSON.parse(fs.readFileSync('./db.json', 'utf8'));
+var _ = require('lodash');
 
 app.use('/',function(req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
@@ -51,35 +18,41 @@ app.get('/', function (req, res, next) {
 
 app.get('/api/items/:id', function (req, res, next) {
     var productID = req.params.id;
-    const response = db.filter(function(list) {
-        // TODO refactor pls ASAP
-        return list.items[0].id === productID;
-    });
+    const response = db.filter(
+        list => list.items[0].id === productID
+    );
     res.status(200).send(response);
 })
 
 
 app.get('/api/:q', function (req, res, next) {
     const searchTerm = req.query.q.toLowerCase();
-    const response = db.filter(function(list) {
-        // TODO refactor pls ASAP this try to catch 
-        // search term from title
-        const titleNormalized = list.items[0].title.toLowerCase();
-        if( titleNormalized.indexOf(searchTerm) !== -1){
-            return true;
+    const response = _.compact(_.map(db, list => {
+
+        const productMatchedByTitle = _.filter(
+            list.items, 
+            product => product.title.toLowerCase().indexOf(searchTerm) >= 0
+        );
+
+        if(!_.isEmpty(productMatchedByTitle)) {
+            return productMatchedByTitle;
         }
 
-        const listResult = list.categories.filter(function(category){
-            const categoryNormalized =  category.toLowerCase();
-            if( categoryNormalized.indexOf(searchTerm) !== -1 ){
-                return true
-            }
-        });
-        // the good approach must be using lodash lib
-        // TODO refactor this piece of code when have time
-        return listResult.length >= 1;
-    });
-    res.status(200).send(response);
+        const productMatchedByCategory= _.filter(
+            list.items, 
+            product => product.categories
+                .find(
+                    category => category.toLowerCase().indexOf(searchTerm) >= 0
+                )
+        );
+
+        if(!_.isEmpty(productMatchedByCategory)) {
+            return productMatchedByCategory;
+        }
+
+    }));
+    const result =_.head(response);
+    res.status(200).send(result);
 })
 
 

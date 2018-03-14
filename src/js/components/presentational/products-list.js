@@ -4,12 +4,11 @@ import fetch from 'cross-fetch';
 
 const urlEndPoint = 'http://localhost:8081/';
 
-// const searchTerm = qs.parse(this.props.location.search)
 export default class ProductsList extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            userList: [],
+            productsList: [],
             isLoading: false,
         };
     }
@@ -23,15 +22,20 @@ export default class ProductsList extends React.Component {
             method: "GET"
           })
           .then(response => response.json())
-          .then(data => this.setState({ userList: data, isLoading: false }))
+          .then(data => this.setState({ productsList: data, isLoading: false }))
           .catch(error => this.setState({ error, isLoading: false }));
     }
 
     render() {
+        const { productsList } = this.state;
         
         return (
             <div>
                 <h3>product list search:</h3>
+                {productsList.map( product => {
+                    console.log(product)
+                }
+                )}
             </div>
         );
     }

@@ -1,0 +1,50 @@
+[
+    {"author": {
+            "name": "Joe",
+            "lastName": "Beck"
+            },   
+        "items": [
+            { 
+                "id": "N98",
+                "categories": ["cellphone","technology","nono"],
+                "title": "Iphone",      
+                "price": { "currency": "Pesos",
+                            "amount": 200,
+                            "decimals": 0
+                        },       
+                "picture": "",
+                "condition": "New", 
+                "free_shipping": false
+            },
+            { 
+                "id": "N987",
+                "categories": ["technology"],
+                "title": "Iphone case",      
+                "price": { "currency": "Pesos",
+                            "amount": 0,
+                            "decimals": 50
+                        },       
+                "picture": "",
+                "condition": "New", 
+                "free_shipping": false
+            }
+
+    ]
+    },
+    {"author": {
+        "name": "Joe",
+        "lastName": "Beck"
+        },   
+        "items": [{ "id": "N989",
+            "categories": ["cellphone","technology"],
+            "title": "Cellphone",      
+            "price": { "currency": "Pesos",
+                        "amount": 200,
+                        "decimals": 10
+                    },       
+            "picture": "",
+            "condition": "New", 
+            "free_shipping": false
+        }]
+    }
+]
