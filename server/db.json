@@ -6,7 +6,7 @@
         "items": [
             { 
                 "id": "N98",
-                "categories": ["cellphone","technology","nono"],
+                "categories": ["cellphone","technology"],
                 "title": "Iphone",      
                 "price": { "currency": "Pesos",
                             "amount": 200,

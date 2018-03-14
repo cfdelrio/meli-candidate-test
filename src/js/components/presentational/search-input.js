@@ -18,14 +18,10 @@ export default class searchInput extends React.Component {
             searchUpdated,
             searchInputClick
         } = this;
-        const { fireRedirect } = this.state
-        const {searchTerm} = this.props;
+        const { fireRedirect, searchTerm } = this.state
 
         return (
             <div>
-                {fireRedirect && (
-                    <Redirect to={`/items?q=${searchTerm}`}/>
-                )}
 
                 <form onSubmit={searchInputClick}>
                     <input
@@ -33,14 +29,18 @@ export default class searchInput extends React.Component {
                         className="search-input" 
                         placeholder="Nunca dejes de buscar"
                         onChange={ searchUpdated }
-                    />
+                        />
                 </form>
+                {fireRedirect && (
+                    <Redirect to={`/items?q=${searchTerm}`}/>
+                )}
             </div>            
         );
     }
     
     searchUpdated (event) {
         this.setState({searchTerm: event.target.value})
+        this.setState({ fireRedirect: false });   
     }
 
     searchInputClick() {

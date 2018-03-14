@@ -18,16 +18,23 @@ app.get('/', function (req, res, next) {
 
 app.get('/api/items/:id', function (req, res, next) {
     var productID = req.params.id;
-    const response = db.filter(
-        list => list.items[0].id === productID
-    );
-    res.status(200).send(response);
+    const response = _.map(db, products => {
+        const productMatchedById = _.filter(
+            products.items, 
+            product => product.id === productID
+        );
+
+        if(!_.isEmpty(productMatchedById)) {
+            return productMatchedById;
+        }
+    });
+    res.status(200).send(_.head(response));
 })
 
 
 app.get('/api/:q', function (req, res, next) {
     const searchTerm = req.query.q.toLowerCase();
-    const response = _.compact(_.map(db, list => {
+    const response = _.map(db, list => {
 
         const productMatchedByTitle = _.filter(
             list.items, 
@@ -50,8 +57,8 @@ app.get('/api/:q', function (req, res, next) {
             return productMatchedByCategory;
         }
 
-    }));
-    const result =_.head(response);
+    });
+    const result = response;
     res.status(200).send(result);
 })
 
