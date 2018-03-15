@@ -1,37 +1,13 @@
 import React from 'react';
 import qs from "query-string";
 import fetch from 'cross-fetch';
-import { Link } from 'react-router-dom'
-import { isEmpty, compact, first, isArray } from 'lodash';
+
+import { isEmpty, compact, get, isArray, map, each } from 'lodash';
+import ProductBreadcrumbs from './product-breadcrumbs';
+import htmlProductTable from './product-table';
+import parser from '../helper/model-helper';
 
 const urlEndPoint = 'http://localhost:8081/';
-
-const renderProductsList = products => {
-    products.map(
-        htmlProductTable(product)
-    );
-}
-
-const htmlProductTable = products => <div>
-    <h3>product list</h3>
-    {products.map( product => {
-        const productLink = ['/items/', product.id].join('');
-
-        return (
-        <div>
-            <div>
-                <Link 
-                    to={productLink}
-                >
-                    {product.title}
-                </Link>
-            </div>
-            <div>{product.condition}</div>
-        </div>
-        )
-    }
-    )}
-</div>
 
 export default class ProductsList extends React.Component {
     constructor (props) {
@@ -62,9 +38,7 @@ export default class ProductsList extends React.Component {
 
         const { searchTerm } = this.props;
         const queryString = searchTerm || searchTermFromUri.q;
-        
-        console.log(queryString, 'did');
-        
+                
         fetch(`${urlEndPoint}api/items?q=${queryString}`, {
             mode: "no-cors",
             method: "GET"
@@ -78,10 +52,24 @@ export default class ProductsList extends React.Component {
         const { productsList } = this.state;
 
         if(isEmpty(compact(productsList))) {
-            return <div>Products not found</div>
+            return <div className="product-not-found">Products not found</div>
         }
-        console.log(compact(productsList));
 
-        return <h1>hay cosas</h1>
+        const productTable = parser(productsList);
+
+        return (
+            <div>
+                <ProductBreadcrumbs
+                    path={productTable}
+                />
+                <div className="product-list">
+                    {
+                        compact(productTable).map(
+                            product => htmlProductTable(product)
+                        )
+                    }
+                </div>
+            </div>
+        )
     }
 }

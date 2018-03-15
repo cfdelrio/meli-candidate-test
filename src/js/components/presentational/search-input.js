@@ -22,7 +22,6 @@ export default class searchInput extends React.Component {
 
         return (
             <div>
-
                 <form onSubmit={searchInputClick}>
                     <input
                         type="text"
@@ -30,6 +29,7 @@ export default class searchInput extends React.Component {
                         placeholder="Nunca dejes de buscar"
                         onChange={ searchUpdated }
                         />
+                        <label for="input"></label>
                 </form>
                 {fireRedirect && (
                     <Redirect to={`/items?q=${searchTerm}`}/>

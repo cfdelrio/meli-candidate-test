@@ -23,12 +23,12 @@ app.get('/api/items/:id', function (req, res, next) {
             products.items, 
             product => product.id === productID
         );
-
         if(!_.isEmpty(productMatchedById)) {
             return productMatchedById;
         }
     });
-    res.status(200).send(_.head(response));
+
+    res.status(200).send(_.first(_.compact(response)));
 })
 
 
@@ -58,8 +58,7 @@ app.get('/api/:q', function (req, res, next) {
         }
 
     });
-    const result = response;
-    res.status(200).send(result);
+    res.status(200).send(response);
 })
 
 

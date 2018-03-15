@@ -13,11 +13,3 @@ export const searchReducer = (state = [], action ) => {
   };
 
 export const ADD_SEARCH_TERM = 'ADD_SEARCH_TERM';
-
-export function addSearchTermToStore(searchTerm) {
-  return {
-    type: ADD_SEARCH_TERM,
-    searchTerm
-  }
-}
- 

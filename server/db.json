@@ -5,26 +5,26 @@
             },   
         "items": [
             { 
-                "id": "N98",
-                "categories": ["cellphone","technology"],
+                "id": "ipod-123",
+                "categories": ["cellphone","technology", "new"],
                 "title": "Iphone",      
-                "price": { "currency": "Pesos",
-                            "amount": 200,
+                "price": { "currency": "$",
+                            "amount": 20000,
                             "decimals": 0
                         },       
-                "picture": "",
+                "picture": "ipod.jpeg",
                 "condition": "New", 
                 "free_shipping": false
             },
             { 
-                "id": "N987",
+                "id": "case-123",
                 "categories": ["technology"],
-                "title": "Iphone case",      
-                "price": { "currency": "Pesos",
-                            "amount": 0,
+                "title": "Iphone Case",      
+                "price": { "currency": "$",
+                            "amount": 900,
                             "decimals": 50
                         },       
-                "picture": "",
+                "picture": "case.jpeg",
                 "condition": "New", 
                 "free_shipping": false
             }
@@ -35,14 +35,14 @@
         "name": "Joe",
         "lastName": "Beck"
         },   
-        "items": [{ "id": "N989",
+        "items": [{ "id": "Nokia-123",
             "categories": ["cellphone","technology"],
-            "title": "Cellphone",      
-            "price": { "currency": "Pesos",
-                        "amount": 200,
+            "title": "Cellphone Nokia",      
+            "price": { "currency": "$",
+                        "amount": 7000,
                         "decimals": 10
                     },       
-            "picture": "",
+                "picture": "nokia-old-school.jpeg",
             "condition": "New", 
             "free_shipping": false
         }]

@@ -20,16 +20,16 @@ const config = {
  },
  module: {
   rules: [
-   {
-    test: /\.js$/,
-    loader: 'babel-loader',
-    exclude: /node_modules/
-   },
-   {
-    test: /\.jsx$/,
-    loader: 'babel-loader',
-    exclude: /node_modules/
-   }, 
+    {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+    },
+    {
+        test: /\.jsx$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+    }, 
     {
         test: /\.less$/,
         exclude: /node_modules/,        
@@ -38,6 +38,10 @@ const config = {
     {
         test: /\.css$/,
         loader: "style-loader!css-loader"
+    },
+    {
+        test: /\.(pdf|jpg|png|gif|svg|ico|jpeg)$/,
+        loader: 'file-loader'
     },
   ]
  },
