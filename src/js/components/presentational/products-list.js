@@ -6,6 +6,7 @@ import { isEmpty, compact, get, isArray, map, each } from 'lodash';
 import ProductBreadcrumbs from './product-breadcrumbs';
 import htmlProductTable from './product-table';
 import parser from '../helper/model-helper';
+import httpRequest from '../helper/api';
 
 const urlEndPoint = 'http://localhost:8081/';
 
@@ -19,43 +20,28 @@ export default class ProductsList extends React.Component {
 
     }
     
-    componentWillReceiveProps(){
-        this.setState({ isLoading: true });
-        const { searchTerm } = this.props;
-
-        fetch(`${urlEndPoint}api/items?q=${searchTerm}`, {
-            mode: "no-cors",
-            method: "GET"
-          })
-          .then(response => response.json())
-          .then(data => this.setState({ productsList: data, isLoading: false }))
-          .catch(error => this.setState({ error, isLoading: false }));
-    }
-    
     componentDidMount() {
-        this.setState({ isLoading: true });
-        const searchTermFromUri = qs.parse(this.props.location.search);
-
         const { searchTerm } = this.props;
-        const queryString = searchTerm || searchTermFromUri.q;
-                
-        fetch(`${urlEndPoint}api/items?q=${queryString}`, {
-            mode: "no-cors",
-            method: "GET"
-          })
-          .then(response => response.json())
-          .then(data => this.setState({ productsList: data, isLoading: false }))
-          .catch(error => this.setState({ error, isLoading: false }));
+        const searchTermFromUri = qs.parse(this.props.location.search);
+        const queryString = searchTerm || searchTermFromUri.q
+        const endpoint = `${urlEndPoint}api/items?q=${queryString}`;
+
+        const {
+            addErrorToStore, 
+            addProductFetchedToStore,
+        } = this.props;
+   
+        httpRequest(endpoint, addProductFetchedToStore, addErrorToStore);
     }
 
     render() {
-        const { productsList } = this.state;
+        const { productFetched } = this.props;
 
-        if(isEmpty(compact(productsList))) {
+        if(isEmpty(compact(productFetched))) {
             return <div className="product-not-found">Products not found</div>
         }
 
-        const productTable = parser(productsList);
+        const productTable = parser(productFetched);
 
         return (
             <div>

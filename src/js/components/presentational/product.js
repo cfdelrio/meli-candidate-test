@@ -1,7 +1,8 @@
 import React from 'react';
 import fetch from 'cross-fetch';
 import qs from "query-string";
-import { compact, get, head } from 'lodash';
+
+import { compact, get, head , isEmpty} from 'lodash';
 import ProductImage from './product-image';
 import ProductPrice from './product-price';
 
@@ -11,7 +12,6 @@ export default class Product extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            productFetched: {},
             isLoading: false,
         };
     }
@@ -19,20 +19,30 @@ export default class Product extends React.Component {
     componentDidMount() {
         this.setState({ isLoading: true });
         const productId = this.props.match.params.id;
-        
+        const { addProductToStore } = this.props;
+
         fetch(`${urlEndPoint}api/items/${productId}`, {
             mode: "no-cors",
             method: "GET"
           })
-          .then(response => response.json())
+          .then(response => {
+              console.log(response);
+             return response.json()
+          })
           .then(data => {
-            this.setState({ productFetched: data[0], isLoading: false });
+            //this.setState({ productFetched: data, isLoading: false });
+            addProductToStore('xxxxx');
           })
           .catch(error => this.setState({ error, isLoading: false }));
     }
 
     render() {
-        const { productFetched } = this.state;
+        const { productFetched } = this.props;
+       // console.log(this)
+
+        if(isEmpty(productFetched)){
+            return (<div>producto no encontrado</div>);
+        }
         return (
             <div className="product-container">
                 <div className="product-image">

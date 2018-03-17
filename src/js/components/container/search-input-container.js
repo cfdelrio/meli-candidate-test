@@ -9,7 +9,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => {
-    return { searchTerm: state.items }
+    return { searchTerm: state.searchTerm }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchInput);

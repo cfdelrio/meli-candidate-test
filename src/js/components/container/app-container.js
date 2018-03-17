@@ -5,11 +5,11 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore } from 'redux';
 
 import Main from '../presentational/main';
-import { searchReducer } from '../reducers/root-reducers';
+import rootReducer from '../reducers/root-reducers';
 
-const store = createStore(searchReducer);
-//store.subscribe(() => console.log('sssss', store.getState()));
-// store.subscribe(searchReducer);
+const store = createStore(rootReducer);
+store.subscribe(() => console.log('sssss', store.getState()));
+// store.subscribe(rootReducer);
 
 const App = () => (
   <div>

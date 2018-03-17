@@ -28,7 +28,7 @@ app.get('/api/items/:id', function (req, res, next) {
         }
     });
 
-    res.status(200).send(_.first(_.compact(response)));
+    res.status(200).send(response);
 })
 
 

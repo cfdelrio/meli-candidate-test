@@ -1,9 +1,19 @@
 import { connect } from 'react-redux'
-import { addSearchTerm } from '../actions/root-actions';
+import { addProductFetched, addError } from '../actions/root-actions';
 import ProductList from '../presentational/products-list';
 
 const mapStateToProps = state => {
-    return { searchTerm: state.items }
+    return { 
+        searchTerm: state.searchTerm,
+        productFetched: state,
+    }
 };
 
-export default connect(mapStateToProps, null)(ProductList);
+const mapDispatchToProps = dispatch => {
+   return {
+      addProductFetchedToStore: product => dispatch(addProductFetched(product)),
+      addErrorToStore: error => dispatch(addError(error))
+   }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

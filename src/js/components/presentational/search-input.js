@@ -39,8 +39,8 @@ export default class searchInput extends React.Component {
     }
     
     searchUpdated (event) {
+        this.setState({ fireRedirect: false });        
         this.setState({searchTerm: event.target.value})
-        this.setState({ fireRedirect: false });   
     }
 
     searchInputClick() {
