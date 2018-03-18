@@ -45,7 +45,11 @@ app.get('/api/:q', function (req, res, next) {
                 if(product.title.match(searchTerm)){
                     return true;
                 }
-                if(!_.isEmpty( _.filter(product.categories, item => item.match( searchTerm )))){
+
+                if(!_.isEmpty( _.filter(
+                    product.categories,
+                    item => item.match( searchTerm )))
+                ){
                     return true;
                 }
             }
