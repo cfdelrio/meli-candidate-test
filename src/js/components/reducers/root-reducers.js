@@ -5,7 +5,7 @@ export const searchReducer = (state = [], action ) => {
       case 'ADD_SEARCH_TERM':{
         return {
           state,
-          fetched: true,
+          fireRedirect: true,
           searchTerm: action.searchTerm
         }
       }
@@ -19,10 +19,8 @@ export const ADD_SEARCH_TERM = 'ADD_SEARCH_TERM';
 export const productFetchedReducer = (state = [], action ) => {
   switch (action.type) {
     case 'ADD_PRODUCT_FETCHED':{
-      console.log(action);
       return {
         state,
-        fetched: true,
         productFetched: action.product
       }
     }
@@ -33,6 +31,21 @@ export const productFetchedReducer = (state = [], action ) => {
 
 export const ADD_PRODUCT_FETCHED = 'ADD_PRODUCT_FETCHED';
 
+export const productReducer = (state = [], action ) => {
+  switch (action.type) {
+    case 'ADD_PRODUCT':{
+      return {
+        state,
+        product: action.product
+      }
+    }
+    default:
+      return state
+  }
+};
+
+export const ADD_PRODUCT = 'ADD_PRODUCT';
+
 
 export const hasError = (state = [], action ) => {
   switch (action.type) {
@@ -40,7 +53,6 @@ export const hasError = (state = [], action ) => {
       console.log(action);
       return {
         state,
-        fetched: false,
         error: action.searchTerm
       }
     }
@@ -53,6 +65,7 @@ export const HAS_ERROR = 'HAS_ERROR';
 
 const rootReducer = combineReducers({
   productFetchedReducer,
+  productReducer,
   searchReducer,
   hasError
 });

@@ -5,7 +5,7 @@ import ProductList from '../presentational/products-list';
 const mapStateToProps = state => {
     return { 
         searchTerm: state.searchTerm,
-        productFetched: state,
+        productFetched: state.productFetchedReducer.productFetched,
     }
 };
 

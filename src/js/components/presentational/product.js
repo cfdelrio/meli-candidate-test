@@ -5,8 +5,11 @@ import qs from "query-string";
 import { compact, get, head , isEmpty} from 'lodash';
 import ProductImage from './product-image';
 import ProductPrice from './product-price';
-
-const urlEndPoint = 'http://localhost:8081/';
+import httpRequest from '../helper/api';
+import {
+    HTTP_ENDPOINT,
+    PRODUCT_NOT_FOUND
+} from '../helper/model-helper';
 
 export default class Product extends React.Component {
     constructor (props) {
@@ -14,50 +17,65 @@ export default class Product extends React.Component {
         this.state = {
             isLoading: false,
         };
+        this.getProduct();
     }
 
-    componentDidMount() {
-        this.setState({ isLoading: true });
+    getProduct() {
         const productId = this.props.match.params.id;
-        const { addProductToStore } = this.props;
 
-        fetch(`${urlEndPoint}api/items/${productId}`, {
-            mode: "no-cors",
-            method: "GET"
-          })
-          .then(response => {
-              console.log(response);
-             return response.json()
-          })
-          .then(data => {
-            //this.setState({ productFetched: data, isLoading: false });
-            addProductToStore('xxxxx');
-          })
-          .catch(error => this.setState({ error, isLoading: false }));
+        const {
+            addErrorToStore, 
+            addProduct,
+        } = this.props;
+
+        const endpoint = [
+            HTTP_ENDPOINT, 
+            'api/items/',
+            productId
+        ].join('');
+
+        this.fetchProduct(endpoint);
+    }
+
+    fetchProduct(endpoint){
+        const {
+            addErrorToStore, 
+            addProduct,
+        } = this.props;
+
+        const addProductToState = product => 
+            this.setState({ 
+                product: head(compact(product))
+            });
+        
+        httpRequest(
+            endpoint,
+            addProductToState,
+            addErrorToStore
+        );
     }
 
     render() {
-        const { productFetched } = this.props;
-       // console.log(this)
+        const { product } = this.state;
 
-        if(isEmpty(productFetched)){
-            return (<div>producto no encontrado</div>);
+        if(isEmpty(product)){
+            return (<div>{PRODUCT_NOT_FOUND}</div>);
         }
         return (
             <div className="product-container">
                 <div className="product-image">
                     <ProductImage
-                        image={productFetched.picture}
+                        image={product.picture}
                     />
                 </div>
                 <div className="product-information">
                     <div className="product-title">
-                        {productFetched.title}
+                        {product.title}
                     </div>
-                    <ProductPrice
-                        productFetched={productFetched}
-                    />
-                </div>
+                        <ProductPrice 
+                            {...product}
+                        />
+                    </div>
             </div>
         );
     }

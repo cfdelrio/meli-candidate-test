@@ -1,16 +1,20 @@
 import { connect } from 'react-redux'
-import { addProductFetched, hasError } from '../actions/root-actions';
+import { addProduct, addError } from '../actions/root-actions';
 import Product from '../presentational/product';
+
+const mapStateToProps = state => {
+    return { 
+        searchTerm: state.searchTerm,        
+        productFetched: state.productFetched,
+        product: state.product,
+    }
+};
 
 const mapDispatchToProps = dispatch => {
    return {
-      addProductToStore: product => dispatch(addProductFetched(product)),
-      addErrorToStore: error => dispatch(hasError(error)),
+      addProduct: product => dispatch(addProduct(product)),
+      addErrorToStore: error => dispatch(addError(error)),
    }
 };
 
-const mapStateToProps = state => {
-    return { productFetched: state.productFetched }
-};
-
-export default connect(mapStateToProps, null)(Product);
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

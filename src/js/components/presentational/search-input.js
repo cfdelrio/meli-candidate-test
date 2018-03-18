@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router'
+import { SEARCH_PLACEHOLDER } from '../helper/model-helper';
 
 export default class searchInput extends React.Component {
     constructor (props) {
@@ -16,19 +17,23 @@ export default class searchInput extends React.Component {
     render() {
         const {
             searchUpdated,
-            searchInputClick
+            searchInputClick, 
         } = this;
-        const { fireRedirect, searchTerm } = this.state
-
+        
+        const {
+            searchTerm,
+            fireRedirect 
+        } = this.state
+        
         return (
             <div>
                 <form onSubmit={searchInputClick}>
                     <input
                         type="text"
                         className="search-input" 
-                        placeholder="Nunca dejes de buscar"
+                        placeholder={SEARCH_PLACEHOLDER}
                         onChange={ searchUpdated }
-                        />
+                    />
                         <label for="input"></label>
                 </form>
                 {fireRedirect && (
@@ -39,15 +44,17 @@ export default class searchInput extends React.Component {
     }
     
     searchUpdated (event) {
-        this.setState({ fireRedirect: false });        
-        this.setState({searchTerm: event.target.value})
+        this.setState({
+            searchTerm: event.target.value,
+            fireRedirect: false,
+        })
     }
 
     searchInputClick() {
         const { onSubmitSearch } = this.props;
-        const {searchTerm } = this.state;
-        
-        this.setState({ fireRedirect: true });        
+        const { searchTerm } = this.state;
+
+        this.setState({fireRedirect: true});
         onSubmitSearch(searchTerm);
         event.preventDefault();
     }

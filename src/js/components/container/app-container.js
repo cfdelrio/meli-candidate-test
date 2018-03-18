@@ -8,8 +8,6 @@ import Main from '../presentational/main';
 import rootReducer from '../reducers/root-reducers';
 
 const store = createStore(rootReducer);
-store.subscribe(() => console.log('sssss', store.getState()));
-// store.subscribe(rootReducer);
 
 const App = () => (
   <div>

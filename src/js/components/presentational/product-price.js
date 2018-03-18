@@ -1,11 +1,11 @@
 import React from 'react';
 
-const productPrice = product => <div className="product-price">
+const productPrice = productFetched => <div className="product-price">
     <div className="product-price-currency">
-            {product.price.currency}
+            {productFetched.price.currency}
     </div>
     <div className="product-price-amount">
-            {product.price.amount},{product.price.decimals}
+            {productFetched.price.amount},{productFetched.price.decimals}
     </div>
     <div className="product-price-ico">
         <img src={require('../../../images/ic_shipping.png')} />

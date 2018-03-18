@@ -14,6 +14,13 @@ export const addProductFetched = product => {
   }
 }
 
+export const addProduct = product => {
+  return {
+    type: 'ADD_PRODUCT',
+    product
+  }
+}
+
 export const addError  = error => {
   return {
     type: 'HAS_ERROR',

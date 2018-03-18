@@ -1,22 +1,10 @@
-import React from 'react';
-import { isArray, each } from 'lodash';
+import { uniq } from 'lodash';
 
-let result = [];
+export const HTTP_ENDPOINT = 'http://localhost:8081/';
+export const SEARCH_PLACEHOLDER ='Nunca pares de buscar';
+export const PRODUCTS_NOT_FOUND = 'Products not found';
+export const PRODUCT_NOT_FOUND = 'Product not found';
 
-const parser = arr => {
-    each(
-        arr,
-        function(element){
-            if(_.isArray(element)){
-              return parser(element);
-
-            } else {
-                result.push(element);
-            }
-        }
-    );
-
-  return result;
-}
-
-export default parser;
+export const array_merge = array => uniq(
+    array.reduce((a, b) => a.concat(b), [])
+);
