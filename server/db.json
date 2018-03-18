@@ -7,7 +7,7 @@
             { 
                 "id": "ipod-123",
                 "categories": ["cellphone","technology", "new"],
-                "title": "Iphone",      
+                "title": "Ipod",      
                 "price": { 
                             "currency": "$",
                             "amount": 20000,
@@ -19,7 +19,7 @@
             },
             { 
                 "id": "case-123",
-                "categories": ["technology"],
+                "categories": ["technology", "old school"],
                 "title": "Iphone Case",      
                 "price": {
                             "currency": "$",
@@ -50,6 +50,21 @@
                 "picture": "nokia-old-school.jpeg",
                 "condition": "New", 
                 "free_shipping": false
-        }]
+        },
+        { 
+            "id": "Nokia-1234",
+            "categories": ["cellphone","technology", "old school"],
+            "title": "Cellphone Nokia 210",      
+            "price": { 
+                        "currency": "u$S",
+                        "amount": 300,
+                        "decimals": 10
+                    },       
+            "picture": "nokia-old-school.jpeg",
+            "condition": "Used", 
+            "free_shipping": false
+    }
+    
+        ]
     }
 ]

@@ -15,7 +15,8 @@ export default class ProductsList extends React.Component {
         super(props)
         this.state = {
             isLoading: false,
-            urlReferer: props.location.search
+            urlReferer: props.location.search,
+            errorInSearch: false,
         };
     }
 
@@ -58,21 +59,30 @@ export default class ProductsList extends React.Component {
     
     fetchProductList(endpoint){
         const {
-            addErrorToStore, 
             addProductFetchedToStore,
         } = this.props;
         
+        this.setState({
+            errorInSearch: false
+        });
+        
+        const hasError = error => this.setState({
+            errorInSearch: true,
+        });
+
         httpRequest(
             endpoint,
             addProductFetchedToStore,
-            addErrorToStore
+            hasError,
         );
     }
 
     render() {
         const { productFetched } = this.props;
-        
-        if(isEmpty(productFetched)) {
+        const { errorInSearch } = this.state;
+
+
+        if(isEmpty(productFetched) || errorInSearch) {
             return <div className="product-not-found">{PRODUCTS_NOT_FOUND}</div>
         };
 
