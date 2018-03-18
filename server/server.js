@@ -28,38 +28,36 @@ app.get('/api/items/:id', function (req, res, next) {
         }
     });
 
-    res.status(200).send(response);
+    res.status(200).send(
+        (_.first(_.compact(response))
+    ));
 })
 
 
 app.get('/api/:q', function (req, res, next) {
-    const searchTerm = req.query.q.toLowerCase();
+    const searchTerm = req.query.q;
     const response = _.map(db, list => {
+        const regex = new RegExp(`.[${searchTerm}]*`,'i');
 
         const productMatchedByTitle = _.filter(
             list.items, 
-            product => product.title.toLowerCase().indexOf(searchTerm) >= 0
+            product => {
+                if(product.title.match(searchTerm)){
+                    return true;
+                }
+                if(!_.isEmpty( _.filter(product.categories, item => item.match( searchTerm )))){
+                    return true;
+                }
+            }
         );
 
         if(!_.isEmpty(productMatchedByTitle)) {
             return productMatchedByTitle;
         }
-
-        const productMatchedByCategory= _.filter(
-            list.items, 
-            product => product.categories
-                .find(
-                    category => category.toLowerCase().indexOf(searchTerm) >= 0
-                )
-        );
-
-        if(!_.isEmpty(productMatchedByCategory)) {
-            return productMatchedByCategory;
-        }
-
     });
-    res.status(200).send(response);
-})
+
+    res.status(200).send((_.first(_.compact(response))));
+});
 
 
 var server = app.listen(8081, function () {
@@ -67,4 +65,4 @@ var server = app.listen(8081, function () {
    var port = server.address().port
    
    console.log("Example app listening at http://%s:%s", host, port)
-})
+});

@@ -8,7 +8,8 @@
                 "id": "ipod-123",
                 "categories": ["cellphone","technology", "new"],
                 "title": "Iphone",      
-                "price": { "currency": "$",
+                "price": { 
+                            "currency": "$",
                             "amount": 20000,
                             "decimals": 0
                         },       
@@ -20,7 +21,8 @@
                 "id": "case-123",
                 "categories": ["technology"],
                 "title": "Iphone Case",      
-                "price": { "currency": "$",
+                "price": {
+                            "currency": "$",
                             "amount": 900,
                             "decimals": 50
                         },       
@@ -35,16 +37,19 @@
         "name": "Joe",
         "lastName": "Beck"
         },   
-        "items": [{ "id": "Nokia-123",
-            "categories": ["cellphone","technology"],
-            "title": "Cellphone Nokia",      
-            "price": { "currency": "$",
-                        "amount": 7000,
-                        "decimals": 10
-                    },       
+        "items": [
+            { 
+                "id": "Nokia-123",
+                "categories": ["cellphone","technology"],
+                "title": "Cellphone Nokia",      
+                "price": { 
+                            "currency": "$",
+                            "amount": 7000,
+                            "decimals": 10
+                        },       
                 "picture": "nokia-old-school.jpeg",
-            "condition": "New", 
-            "free_shipping": false
+                "condition": "New", 
+                "free_shipping": false
         }]
     }
 ]
