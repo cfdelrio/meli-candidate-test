@@ -8,7 +8,9 @@ const productPrice = productFetched => <div className="product-price">
             {productFetched.price.amount},{productFetched.price.decimals}
     </div>
     <div className="product-price-ico">
+    { productFetched.free_shipping  === true && (
         <img src={require('../../../images/ic_shipping.png')} />
+    )}
     </div>
 </div>
 

@@ -15,7 +15,8 @@
                         },       
                 "picture": "ipod.jpeg",
                 "condition": "New", 
-                "free_shipping": false
+                "free_shipping": true,
+                "location": "Capital Federal"
             },
             { 
                 "id": "case-123",
@@ -28,7 +29,8 @@
                         },       
                 "picture": "case.jpeg",
                 "condition": "New", 
-                "free_shipping": false
+                "free_shipping": false,
+                "location": "Mendoza"
             }
 
     ]
@@ -49,7 +51,8 @@
                         },       
                 "picture": "nokia-old-school.jpeg",
                 "condition": "New", 
-                "free_shipping": false
+                "free_shipping": true,
+                "location": "San Carlos de Bariloche"
         },
         { 
             "id": "Nokia-1234",
@@ -62,8 +65,9 @@
                     },       
             "picture": "nokia-old-school.jpeg",
             "condition": "Used", 
-            "free_shipping": false
-    }
+            "free_shipping": false,
+            "location": "Capital Federal"
+        }
     
         ]
     }

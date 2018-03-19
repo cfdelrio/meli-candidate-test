@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ProductImage from './product-image'
+import ProductPrice from './product-price';
 
 const htmlProductTable = product => {
     const productLink = ['/items/', product.id].join('');
@@ -15,17 +16,9 @@ const htmlProductTable = product => {
                             image={product.picture}
                         />
                         <div className="product-information">
-                            <div className="product-price">
-                                <div className="product-price-currency">
-                                        {product.price.currency}
-                                </div>
-                                <div className="product-price-amount">
-                                        {product.price.amount},{product.price.decimals}
-                                </div>
-                                <div className="product-price-ico">
-                                    <img src={require('../../../images/ic_shipping.png')} />
-                                </div>
-                            </div>
+                            <ProductPrice 
+                                {...product}
+                            />
                             <div className="product-description">
                                 <div className="product-title">
                                     {product.title}
@@ -34,6 +27,9 @@ const htmlProductTable = product => {
                                     {product.condition}
                                 </div>
                             </div>
+                        </div>
+                        <div className="product-location">
+                              {product.location}
                         </div>
                     </div>
                 </Link>
