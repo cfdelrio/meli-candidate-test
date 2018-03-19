@@ -75,20 +75,22 @@ export default class Product extends React.Component {
                     </div>
                 </div>
                 <div className="product-container">
-                    <div className="product-image">
-                        <ProductImage
-                            image={product.picture}
-                        />
-                    </div>
-                    <div className="product-information">
-                        <div className="product-title">
-                            {product.title}
-                        </div>
-                            <ProductPrice 
-                                {...product}
+                    <div className="product-card">
+                        <div className="product-image">
+                            <ProductImage
+                                image={product.picture}
                             />
                         </div>
-                </div>
+                        <div className="product-information">
+                            <div className="product-title">
+                                {product.title}
+                            </div>
+                                <ProductPrice 
+                                    {...product}
+                                />
+                            </div>
+                        </div>
+                    </div>
             </div>
         );
     }
