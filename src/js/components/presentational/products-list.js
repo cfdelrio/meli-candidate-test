@@ -79,7 +79,7 @@ export default class ProductsList extends React.Component {
 
     render() {
         const { productFetched } = this.props;
-        const { errorInSearch } = this.state;
+        const { errorInSearch, urlReferer } = this.state;
 
 
         if(isEmpty(productFetched) || errorInSearch) {
@@ -88,9 +88,14 @@ export default class ProductsList extends React.Component {
 
         return (
             <div>
-                <ProductBreadcrumbs
-                    path={productFetched}
-                />
+                <div className="product-list-breadcrumbs">
+                    <div className="product-breadcrumbs-category">            
+                        <ProductBreadcrumbs
+                            productsList={productFetched}
+                            uri= {urlReferer}
+                        />
+                    </div>
+                </div>
                 <div className="product-list">
                     {
                         compact(productFetched)

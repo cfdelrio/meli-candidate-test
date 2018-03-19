@@ -4,6 +4,10 @@ var fs = require('fs');
 var db = JSON.parse(fs.readFileSync('./db.json', 'utf8'));
 var _ = require('lodash');
 
+const array_merge = array => _.uniq(
+    array.reduce((a, b) => a.concat(b), [])
+);
+
 app.use('/',function(req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -39,13 +43,13 @@ app.get('/api/:q', function (req, res, next) {
     const response = _.map(db, list => {
         const regex = new RegExp(`.[${searchTerm}]*`,'i');
 
-        const productMatchedByTitle = _.filter(
+        const productMatched = _.filter(
             list.items, 
             product => {
                 if(product.title.match(searchTerm)){
                     return true;
                 }
-
+    
                 if(!_.isEmpty( _.filter(
                     product.categories,
                     item => item.match( searchTerm )))
@@ -55,12 +59,12 @@ app.get('/api/:q', function (req, res, next) {
             }
         );
 
-        if(!_.isEmpty(productMatchedByTitle)) {
-            return productMatchedByTitle;
+        if(!_.isEmpty(productMatched)) {
+            return productMatched;
         }
     });
 
-    res.status(200).send((_.first(_.compact(response))));
+    res.status(200).send(_.compact(array_merge(response)));
 });
 
 

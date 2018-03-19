@@ -32,7 +32,8 @@ export default class searchInput extends React.Component {
                         type="text"
                         className="search-input" 
                         placeholder={SEARCH_PLACEHOLDER}
-                        onChange={ searchUpdated }
+                        onChange={searchUpdated}
+                        ref={(input) => {this.textInput = input}}
                     />
                         <label for="input"></label>
                 </form>

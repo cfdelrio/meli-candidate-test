@@ -3,12 +3,22 @@ import { Link } from 'react-router-dom'
 import { map } from 'lodash';
 import { array_merge } from '../helper/model-helper';
 
+const breadcrumbsSelect = (httpReferer, uri) => {
+    if(uri.indexOf(httpReferer) !== -1){
+        return '--selected'
+    }
+    return '';
+}
+
 export default class ProductBreadcrumbs extends React.Component {
     render () {
-        const { path } = this.props;
+        const { 
+            productsList,
+            uri 
+        } = this.props;
 
         const categories = map(
-            path, 
+            productsList, 
             item => item.categories
         );
 
@@ -16,13 +26,11 @@ export default class ProductBreadcrumbs extends React.Component {
 
         return (
             categoriesFiltered.map(
-                category => 
-                    <div className="product-list-breadcrumbs">
-                        <div className="product-list-breadcrumbs-category">
-                            <Link to={`/items?q=${category}`}>
-                                {category}
-                            </Link>
-                        </div>
+                category =>
+                    <div className={`breadcrumbs-category${breadcrumbsSelect(category, uri)}`}>
+                        <Link to={`/items?q=${category}`}>
+                            {category}
+                        </Link>
                     </div>
             )
         );
