@@ -14,7 +14,6 @@ export default class ProductsList extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            isLoading: false,
             urlReferer: props.location.search,
             errorInSearch: false,
         };

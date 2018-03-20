@@ -1,6 +1,6 @@
 import React from 'react';
 
-const productPrice = productFetched => <div className="product-price">
+const productPrice = ({productFetched, className}) => <div className={className}>
     <div className="product-price-currency">
             {productFetched.price.currency}
     </div>

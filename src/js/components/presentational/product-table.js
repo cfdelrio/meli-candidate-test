@@ -17,7 +17,8 @@ const htmlProductTable = product => {
                         />
                         <div className="product-information-list">
                             <ProductPrice
-                                {...product}
+                                productFetched={product}
+                                className="product-price-list"
                             />
                             <div className="product-description">
                                 <div className="product-title-list">

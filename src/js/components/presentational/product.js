@@ -21,7 +21,6 @@ export default class Product extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            isLoading: false,
             urlReferer: props.location.search,            
         };
         this.getProduct();
@@ -66,7 +65,7 @@ export default class Product extends React.Component {
         const { product, urlReferer } = this.state;
 
         if(isEmpty(product)){
-            return (<div>{PRODUCT_NOT_FOUND}</div>);
+            return (<div className="product-not-found">{PRODUCT_NOT_FOUND}</div>);
         }
         return (
             <div>
@@ -94,7 +93,8 @@ export default class Product extends React.Component {
                                 {product.title}
                             </div>
                                 <ProductPrice 
-                                    {...product}
+                                     productFetched={product}
+                                     className="product-price"
                                 />
                                 <div className="product-buy">
                                     <input type="button"  value={BUTTON_BUY}/>
