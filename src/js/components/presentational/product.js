@@ -13,6 +13,10 @@ import {
     PRODUCT_NOT_FOUND
 } from '../helper/model-helper';
 
+const SOLD = "234 Vendidos";
+const BUTTON_BUY = "Comprar";
+const DESCRIPTION_TITLE = "Descripción de producto";
+
 export default class Product extends React.Component {
     constructor (props) {
         super(props)
@@ -76,19 +80,31 @@ export default class Product extends React.Component {
                 </div>
                 <div className="product-container">
                     <div className="product-card">
-                        <div className="product-image">
+                        <div className="product-image-container">
                             <ProductImage
-                                image={product.picture}
+                                className="product-big-image"
+                                image={product.bugPicture}
                             />
                         </div>
                         <div className="product-information">
+                            <div className="product-condition">
+                                {product.condition} {SOLD}
+                            </div>
                             <div className="product-title">
                                 {product.title}
                             </div>
                                 <ProductPrice 
                                     {...product}
                                 />
+                                <div className="product-buy">
+                                    <input type="button"  value={BUTTON_BUY}/>
+                                </div>
                             </div>
+                            
+                        </div>
+                        <div className="product-description-card">
+                            <div className="product-description-title">{DESCRIPTION_TITLE}</div>
+                            <div className="product-description-text" >{product.description}</div>
                         </div>
                     </div>
             </div>
