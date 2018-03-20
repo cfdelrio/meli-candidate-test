@@ -15,20 +15,20 @@ const htmlProductTable = product => {
                         <ProductImage 
                             image={product.picture}
                         />
-                        <div className="product-information">
-                            <ProductPrice 
+                        <div className="product-information-list">
+                            <ProductPrice
                                 {...product}
                             />
                             <div className="product-description">
-                                <div className="product-title">
+                                <div className="product-title-list">
                                     {product.title}
                                 </div>
-                                <div className="product-condition">
+                                <div className="product-condition-list">
                                     {product.condition}
                                 </div>
                             </div>
                         </div>
-                        <div className="product-location">
+                        <div className="product-location-list">
                               {product.location}
                         </div>
                     </div>
